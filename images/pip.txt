@@ -1,0 +1,14 @@
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+python -m pip install pymysql
+python -m pip install fastapi
+python -m pip install sqlalchemy
+python -m pip install bcrypt
+python -m pip install pyjwt
+python -m pip install uvicorn
+
+
+granian --interface wsgi bebinca:app
+
+granian --interface wsgi --workers 1 --threads 4 bebinca:app
