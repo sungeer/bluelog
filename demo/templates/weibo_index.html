@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>weibo</title>
+    <style>
+        .comment {
+            border: 1px red solid;
+        }
+        .comment-list {
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input id="id-input-weibo">
+        <button id="id-button-add-weibo">发表微博</button>
+    </div>
+    <div class="weibo-list gua-auto-list"
+         data-method="get"
+         data-path="/api/weibo/all"
+         data-template="xxtemplate"
+    >
+        <div class="comment">
+
+        </div>
+        <div class="comment-form">
+            <input type="hidden" name="weibo_id" value="">
+            <input name="content">
+            <br>
+            <button class="comment-add">添加评论</button>
+        </div>
+    </div>
+    <script src='/static?file=gua.js'></script>
+    <script src='/static?file=weibo.js'></script>
+
+
+</body>
+</html>

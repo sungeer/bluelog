@@ -1,0 +1,50 @@
+[
+  {
+    "weibo_id": 1,
+    "content": "楼主说得对",
+    "user_id": 2,
+    "id": 1
+  },
+  {
+    "weibo_id": 1,
+    "content": "lbvu is right",
+    "user_id": 1,
+    "id": 2
+  },
+  {
+    "weibo_id": 2,
+    "content": "hello",
+    "user_id": 1,
+    "id": 3
+  },
+  {
+    "weibo_id": 2,
+    "content": "123",
+    "user_id": 1,
+    "id": 4
+  },
+  {
+    "weibo_id": 2,
+    "content": "asdf",
+    "user_id": 1,
+    "id": 5
+  },
+  {
+    "weibo_id": 3,
+    "content": "123",
+    "user_id": 1,
+    "id": 6
+  },
+  {
+    "weibo_id": 2,
+    "content": "说得好",
+    "user_id": 2,
+    "id": 7
+  },
+  {
+    "weibo_id": 2,
+    "content": "说得好",
+    "user_id": 2,
+    "id": 8
+  }
+]

@@ -12,3 +12,13 @@ python -m pip install uvicorn
 granian --interface wsgi bebinca:app
 
 granian --interface wsgi --workers 1 --threads 4 bebinca:app
+
+
+
+python -m pip install mysqlclient flask python-dotenv requests loguru granian
+
+pip install requests gevent pebble
+
+
+
+
