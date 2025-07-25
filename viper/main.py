@@ -36,7 +36,6 @@ def response_for_path(path, request):
     r.update(api_todo)
     r.update(user_routes)
     r.update(todo_routes)
-    r.update(weibo_routes)
     #
     response = r.get(path, error)
     return response(request)
