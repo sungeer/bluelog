@@ -9,7 +9,7 @@ import time
 import gevent
 from gevent import socket
 
-from viper.libs.request import Request
+from viper.wrappers.request import Request
 
 
 def parsed_path(path):
