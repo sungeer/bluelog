@@ -14,7 +14,7 @@ from viper.libs.request import Request
 
 def parsed_path(path):
     query = {}
-    # 'http://127.0.0.1/abc?message=hello&author=gua'
+    # 'http://127.0.0.1:7788/abc?message=hello&author=gua'
     index = path.find('?')
     if index == -1:
         return path, query
