@@ -43,34 +43,38 @@ def response_for_path(path, request):
 
 
 def handle_request(conn):
+    data = b''
+    while b'\r\n\r\n' not in data:
+        chunk = conn.recv(4096)
+        if not chunk:
+            break
+        data += chunk
+        if len(data) > 8192:
+            break  # 防止恶意包
     try:
-        while True:
-            data = conn.recv(4096)
-            if not data:
-                break
-            data = data.decode('utf-8')
+        data = data.decode('utf-8')
 
-            # 按 空行分割 header和body
-            header_body = data.split('\r\n\r\n', 1)
-            header_part = header_body[0]
-            body_part = header_body[1] if len(header_body) > 1 else ''
+        # 按 空行分割 header和body
+        header_body = data.split('\r\n\r\n', 1)
+        header_part = header_body[0]
+        body_part = header_body[1] if len(header_body) > 1 else ''
 
-            # 拆分 请求行 和每个 header
-            lines = header_part.split('\r\n')
-            request_line = lines[0]  # 请求行
-            header_lines = lines[1:]  # 请求头行
+        # 拆分 请求行 和每个 header
+        lines = header_part.split('\r\n')
+        request_line = lines[0]  # 请求行
+        header_lines = lines[1:]  # 请求头行
 
-            # 解析 请求行
-            method, path, version = request_line.split(' ', 2)
+        # 解析 请求行
+        method, path, version = request_line.split(' ', 2)
 
-            # 解析headers为字典
-            headers = {}
-            for line in header_lines:
-                if ': ' in line:
-                    key, value = line.split(': ', 1)
-                    headers[key] = value
+        # 解析headers为字典
+        headers = {}
+        for line in header_lines:
+            if ': ' in line:
+                key, value = line.split(': ', 1)
+                headers[key] = value
 
-            request = Request()
+        request = Request()
     except Exception as ex:
         print(ex)
     finally:
