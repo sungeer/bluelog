@@ -2,40 +2,30 @@ from gevent import monkey
 
 monkey.patch_all(thread=False, subprocess=False)
 
-import sys
 import signal
+from datetime import datetime
 
 from werkzeug.wrappers import Request
 from gevent.pywsgi import WSGIServer
 
-from viper.utils.util_log import logger
-from viper.wrappers.response import jsonify
-
-
-def handle_uncaught_exception(exc_type, exc_value, exc_traceback):
-    logger.opt(exception=(exc_type, exc_value, exc_traceback)).critical('Critical exception, application will shutdown.')
-
-
-sys.excepthook = handle_uncaught_exception
+from viper.core.routes import response_for_path
 
 
 def application(environ, start_response):
-    try:
-        request = Request(environ)
-        data = 'Hello, world!'
-        response = jsonify(data)
-        return response(environ, start_response)
-    except (Exception,):
-        logger.exception('error from verifying')
-        start_response('500 Internal Server Error', [('Content-Type', 'text/plain')])
-        return [b'Internal Server Error\n']
+    request = Request(environ)
+    response = response_for_path(request)
+    return response(environ, start_response)
 
 
 def stop_server(signum, frame):
-    print('\nReceived signal to stop server.')
+    print('\nShutting down')
     server.stop()
+    print('Finished server process')
 
 
+print(f'* Running on http://{'127.0.0.1'}:7788 (Press CTRL+C to quit)')
+print(f'* Using worker: gevent.pywsgi.WSGIServer')
+print(f'* Started at {datetime.now().isoformat(sep=' ', timespec='seconds')}')
 server = WSGIServer(('0.0.0.0', 7788), application)
 signal.signal(signal.SIGINT, stop_server)
 server.serve_forever()
