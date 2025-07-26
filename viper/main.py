@@ -5,9 +5,11 @@ monkey.patch_all(thread=False, subprocess=False)
 import sys
 import signal
 
+from werkzeug.wrappers import Request
 from gevent.pywsgi import WSGIServer
 
 from viper.utils.util_log import logger
+from viper.wrappers.response import jsonify
 
 
 def handle_uncaught_exception(exc_type, exc_value, exc_traceback):
@@ -19,19 +21,10 @@ sys.excepthook = handle_uncaught_exception
 
 def application(environ, start_response):
     try:
-        method = environ['REQUEST_METHOD']
-        raise
-        path = environ['PATH_INFO']
-        query = environ['QUERY_STRING']
-        headers = {k[5:]: v for k, v in environ.items() if k.startswith('HTTP_')}
-        try:
-            length = int(environ.get('CONTENT_LENGTH', 0) or 0)
-        except (ValueError, TypeError):
-            length = 0
-        body = environ['wsgi.input'].read(length) if length > 0 else b''
-
-        start_response('200 OK', [('Content-Type', 'text/plain')])
-        return [b'Hello, world!\n']
+        request = Request(environ)
+        data = 'Hello, world!'
+        response = jsonify(data)
+        return response(environ, start_response)
     except (Exception,):
         logger.exception('error from verifying')
         start_response('500 Internal Server Error', [('Content-Type', 'text/plain')])
@@ -43,6 +36,6 @@ def stop_server(signum, frame):
     server.stop()
 
 
-server = WSGIServer(('0.0.0.0', 8000), application)
+server = WSGIServer(('0.0.0.0', 7788), application)
 signal.signal(signal.SIGINT, stop_server)
 server.serve_forever()
