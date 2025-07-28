@@ -1,6 +1,6 @@
 # Nucleic
 
-*A async backend scaffold based on FastAPI.*
+*A backend scaffold depends on the Werkzeug WSGI toolkit.*
 
 ## Installation
 
