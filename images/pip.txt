@@ -11,6 +11,7 @@ python -m pip install uvicorn
 granian --interface wsgi --workers 1 --threads 1 --port 8080 viper:app
 
 
+python -m pip install waitress
 
 python -m pip install mysqlclient flask python-dotenv requests loguru granian
 
@@ -18,4 +19,7 @@ pip install requests pebble granian
 
 python -m pip install Werkzeug
 
+
+
+waitress --host=0.0.0.0 --port=8080 app:app
 
