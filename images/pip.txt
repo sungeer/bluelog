@@ -2,22 +2,19 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 
 python -m pip install pymysql
-python -m pip install fastapi
 python -m pip install sqlalchemy
 python -m pip install bcrypt
 python -m pip install pyjwt
 python -m pip install uvicorn
 
 
-granian --interface wsgi bebinca:app
-
-granian --interface wsgi --workers 1 --threads 4 bebinca:app
+granian --interface wsgi --workers 1 --threads 1 --port 8080 viper:app
 
 
 
 python -m pip install mysqlclient flask python-dotenv requests loguru granian
 
-pip install requests gevent pebble
+pip install requests pebble granian
 
 python -m pip install Werkzeug
 
