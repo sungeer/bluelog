@@ -31,7 +31,7 @@ def get_todo_by_id():
             id < :max_id
         LIMIT 1
     '''
-    params = {'id': 123}
+    params = {'max_id': 123}
 
     with engine.connect() as conn:
         result = conn.execute(text(sql_str), params)
