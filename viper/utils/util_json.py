@@ -18,7 +18,7 @@ def json_to_dict(json_data):
 class JsonExtendEncoder(json.JSONEncoder):
 
     def default(self, obj):
-        if isinstance(obj, (tuple, list, datetime)):
+        if isinstance(obj, datetime):
             return obj.strftime('%Y-%m-%d %H:%M:%S')
         elif isinstance(obj, date):
             return obj.strftime('%Y-%m-%d')
