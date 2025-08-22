@@ -1,12 +1,21 @@
-import os
 from pathlib import Path
 
-from dotenv import load_dotenv, find_dotenv
+from starlette.config import Config
 
-load_dotenv(find_dotenv())
+from viper.utils.conf_util import ConfigDetector
 
-DEV_MODE = os.getenv('DEBUG') == '1'  # None
+CURRENT_DIR = Path(__file__).resolve()  # 当前文件 的 绝对路径
+BASE_DIR = CURRENT_DIR.parent.parent.parent
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+config = Config('.env')
 
-LOG_DIR = BASE_DIR / 'logs'
+DEBUG = config('DEBUG', cast=bool, default=False)
+
+if DEBUG:
+    conf_dir = BASE_DIR / 'nacos-data'
+    CONF = ConfigDetector(conf_dir)
+else:
+    CONF = ConfigDetector(
+        nacos_addr=config('NACOS_ADDR'),
+        namespace=config('NACOS_NAMESPACE')
+    )

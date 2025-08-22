@@ -1,9 +1,14 @@
-from werkzeug.wrappers import Request
+from starlette.applications import Starlette
 
-from viper.core.routes import response_for_path
+from viper.core.errors import register_errors
+from viper.core.events import register_events
+from viper.core.middlewares import register_middlewares
+from viper.core.routers import register_routes
 
 
-def app(environ, start_response):
-    request = Request(environ)
-    response = response_for_path(request)
-    return response(environ, start_response)
+app = Starlette(
+    routes = register_routes,
+    middleware = register_middlewares,
+    exception_handlers = register_errors,
+    lifespan = register_events
+)
