@@ -1,0 +1,16 @@
+pip cache purge  # 清除缓存
+
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+
+python -m pip install python-dotenv loguru starlette uvicorn
+
+
+python -m pip install SQLAlchemy asyncmy
+
+
+uvicorn viper:app --host 127.0.0.1 --port 7788
+
+
+

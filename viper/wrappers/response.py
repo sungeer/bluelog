@@ -1,8 +1,15 @@
 from http import HTTPStatus
 
-from starlette.exceptions import HTTPException
+from starlette.responses import JSONResponse
+from starlette.responses import StreamingResponse
 
-from viper.utils.json_util import JsonExtendResponse
+from viper.utils import util_json
+
+
+class JsonExtendResponse(JSONResponse):
+
+    def render(self, content):
+        return util_json.dict_to_json_stream(content)
 
 
 class BaseResponse:
@@ -36,7 +43,7 @@ def jsonify(*args, **kwargs):
     return JsonExtendResponse(response)
 
 
-def jsonify_exc(error_code, message=None):
+def abort(error_code, message=None):
     if not message:
         message = HTTPStatus(error_code).phrase
     response = BaseResponse()
@@ -47,5 +54,13 @@ def jsonify_exc(error_code, message=None):
     return JsonExtendResponse(response)
 
 
-def abort(error_code, message=None):
-    raise HTTPException(status_code=error_code, detail=message)
+def sseify(event_generator):
+    async def wrapper():
+        async for data in event_generator():
+            # return f'data: {json.dumps(data)}\n\n'
+            payload = BaseResponse()
+            payload.data = data
+            payload = payload.to_dict()
+            sse_data = f'data: {util_json.dict_to_json(payload)}\n\n'
+            yield sse_data
+    return StreamingResponse(wrapper(), media_type='text/event-stream')

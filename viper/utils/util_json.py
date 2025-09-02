@@ -2,8 +2,6 @@ import json
 from datetime import datetime, date
 from decimal import Decimal
 
-from starlette.responses import JSONResponse
-
 
 def dict_to_json(data):
     return json.dumps(data, cls=JsonExtendEncoder, ensure_ascii=False)
@@ -29,9 +27,3 @@ class JsonExtendEncoder(json.JSONEncoder):
         elif isinstance(obj, bytes):
             return obj.decode('utf-8')
         return super().default(obj)
-
-
-class JsonExtendResponse(JSONResponse):
-
-    def render(self, content):
-        return dict_to_json_stream(content)

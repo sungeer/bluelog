@@ -10,6 +10,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
+dist/
 downloads/
 eggs/
 .eggs/
@@ -109,6 +110,3 @@ logs/*
 !logs/.gitkeep
 uploads/*
 !uploads/.gitkeep
-
-# Nacos
-nacos-data/
