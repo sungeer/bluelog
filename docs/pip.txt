@@ -4,13 +4,15 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 
 
-python -m pip install python-dotenv loguru starlette uvicorn
+python -m pip install python-dotenv
+python -m pip install requests
+python -m pip install loguru
 
 
-python -m pip install SQLAlchemy asyncmy
+python -m pip install mysqlclient SQLAlchemy Werkzeug Jinja2
+
+python -m pip install redis
 
 
-uvicorn viper:app --host 127.0.0.1 --port 7788
-
-
+waitress --host=127.0.0.1 --port=7788 app:app
 
