@@ -1,6 +1,6 @@
 from starlette.requests import Request
 
-from viper.core.routes import response_for_path
+from shortly.core.routes import response_for_path
 
 
 async def app(scope, receive, send):
