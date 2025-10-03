@@ -7,17 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 class BaseConfig:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
 
-    DEBUG_TB_INTERCEPT_REDIRECTS = False
-    DEBUG_TB_ENABLED = False
-
-    SQLALCHEMY_RECORD_QUERIES = True
-
-    CKEDITOR_ENABLE_CSRF = True
-    CKEDITOR_FILE_UPLOADER = 'admin.upload_image'
-
     DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
     DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+    DATABASE_HOST = os.getenv('DATABASE_HOST')
     DATABASE_PORT = os.getenv('DATABASE_PORT')
+    DATABASE_NAME = os.getenv('DATABASE_NAME')
 
     BLUELOG_PER_PAGE = 10
     BLUELOG_MANAGE_PER_PAGE = 15
