@@ -19,14 +19,14 @@ class BaseConfig:
     MAIL_PORT = os.getenv('MAIL_USERNAME')
     DATABASE_PASSWORD = os.getenv('MAIL_USERNAME')
 
-    SHORTLY_PER_PAGE = 10
-    SHORTLY_MANAGE_PER_PAGE = 15
-    SHORTLY_THEMES = {'default': 'Default', 'shortly': 'Shortly'}
+    BLUELOG_PER_PAGE = 10
+    BLUELOG_MANAGE_PER_PAGE = 15
+    BLUELOG_THEMES = {'default': 'Default', 'bluelog': 'Bluelog'}
 
-    SHORTLY_UPLOAD_PATH = os.getenv('SHORTLY_UPLOAD_PATH', BASE_DIR / 'uploads')
-    SHORTLY_ALLOWED_IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
-    SHORTLY_LOGGING_PATH = os.getenv('SHORTLY_LOGGING_PATH', BASE_DIR / 'logs/shortly.log')
-    SHORTLY_ERROR_EMAIL_SUBJECT = '[Shortly] Application Error'
+    BLUELOG_UPLOAD_PATH = os.getenv('BLUELOG_UPLOAD_PATH', BASE_DIR / 'uploads')
+    BLUELOG_ALLOWED_IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
+    BLUELOG_LOGGING_PATH = os.getenv('BLUELOG_LOGGING_PATH', BASE_DIR / 'logs/bluelog.log')
+    BLUELOG_ERROR_EMAIL_SUBJECT = '[Bluelog] Application Error'
 
 
 class DevelopmentConfig(BaseConfig):
