@@ -9,6 +9,7 @@ from flask import (
     url_for,
 )
 
+from bluelog.decorators import login_required
 from bluelog.services import service_post
 from bluelog.models.model_post import PostModel
 

@@ -15,15 +15,15 @@ class BaseConfig:
     CKEDITOR_ENABLE_CSRF = True
     CKEDITOR_FILE_UPLOADER = 'admin.upload_image'
 
-    DATABASE_USERNAME = os.getenv('MAIL_SERVER')
-    MAIL_PORT = os.getenv('MAIL_USERNAME')
-    DATABASE_PASSWORD = os.getenv('MAIL_USERNAME')
+    DATABASE_USERNAME = os.getenv('DATABASE_USERNAME')
+    DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+    DATABASE_PORT = os.getenv('DATABASE_PORT')
 
     BLUELOG_PER_PAGE = 10
     BLUELOG_MANAGE_PER_PAGE = 15
     BLUELOG_THEMES = {'default': 'Default', 'bluelog': 'Bluelog'}
 
-    BLUELOG_UPLOAD_PATH = os.getenv('BLUELOG_UPLOAD_PATH', BASE_DIR / 'uploads')
+    # BLUELOG_UPLOAD_PATH = os.getenv('BLUELOG_UPLOAD_PATH', BASE_DIR / 'uploads')
     BLUELOG_ALLOWED_IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
     BLUELOG_LOGGING_PATH = os.getenv('BLUELOG_LOGGING_PATH', BASE_DIR / 'logs/bluelog.log')
     BLUELOG_ERROR_EMAIL_SUBJECT = '[Bluelog] Application Error'
