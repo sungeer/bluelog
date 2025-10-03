@@ -12,6 +12,7 @@ from flask import (
 from bluelog.decorators import login_required
 from bluelog.services import service_post
 from bluelog.models.model_post import PostModel
+from bluelog.utils import util_time
 
 blog_bp = Blueprint('blog', __name__)
 
@@ -27,7 +28,6 @@ def index():
 @blog_bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    author_id = g.user['id']
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
@@ -39,7 +39,9 @@ def create():
         if error is not None:
             flash(error)
         else:
-            PostModel().add_post(title, body, author_id)
+            author_id = g.user['id']
+            created_at = util_time.get_now()
+            PostModel().add_post(title, body, author_id, created_at)
             return redirect(url_for('blog.index'))
     return render_template('blog/create.html')
 

@@ -10,6 +10,7 @@ from werkzeug.security import check_password_hash
 from werkzeug.security import generate_password_hash
 
 from bluelog.models.model_auth import AuthModel
+from bluelog.utils import util_time
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -42,7 +43,8 @@ def register():
                 error = f'User {username} is already registered.'
             else:
                 password = generate_password_hash(password)
-                AuthModel().add_user(username, password)
+                created_at = util_time.get_now()
+                AuthModel().add_user(username, password, created_at)
                 return redirect(url_for('auth.login'))
         flash(error)
     return render_template('auth/register.html')

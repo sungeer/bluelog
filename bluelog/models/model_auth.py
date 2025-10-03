@@ -31,15 +31,15 @@ class AuthModel(BaseModel):
         is_exist = user['is_exist']
         return bool(is_exist)
 
-    def add_user(self, username, password):
+    def add_user(self, username, password, created_at):
         sql_str = '''
             INSERT INTO
                 user
-                (username, password)
-            VALUES (%s, %s)
+                (username, password， created_at)
+            VALUES (%s, %s, %s)
         '''
         self.conn()
-        self.execute(sql_str, (username, password))
+        self.execute(sql_str, (username, password, created_at))
         self.commit()
         lastrowid = self.cursor.lastrowid  # 自增主键id
         self.close()

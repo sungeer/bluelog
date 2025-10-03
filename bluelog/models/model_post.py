@@ -36,15 +36,15 @@ class PostModel(BaseModel):
         return post
 
 
-    def add_post(self, title, body, author_id):
+    def add_post(self, title, body, author_id, created_at):
         sql_str = '''
             INSERT INTO
                 post
-                (title, body, author_id)
-            VALUES (%s, %s, %s)
+                (title, body, author_id, created_at)
+            VALUES (%s, %s, %s, %s)
         '''
         self.conn()
-        self.execute(sql_str, (title, body, author_id))
+        self.execute(sql_str, (title, body, author_id, created_at))
         self.commit()
         lastrowid = self.cursor.lastrowid  # 自增主键id
         self.close()
