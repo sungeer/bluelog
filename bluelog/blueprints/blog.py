@@ -1,25 +1,16 @@
 from flask import (
     Blueprint,
-    abort,
     current_app,
-    g,
     flash,
-    make_response,
+    g,
     redirect,
     render_template,
     request,
-    send_from_directory,
     url_for,
 )
-from flask_login import current_user
-from sqlalchemy import select
-from sqlalchemy.orm import with_parent
 
-from greybook.core.extensions import db
-from greybook.emails import send_new_comment_email, send_new_reply_email
-from greybook.forms import AdminCommentForm, CommentForm
-from greybook.models import Category, Comment, Post
-from greybook.utils import redirect_back
+from bluelog.services import service_post
+from bluelog.models.model_post import PostModel
 
 blog_bp = Blueprint('blog', __name__)
 
@@ -35,59 +26,48 @@ def index():
 @blog_bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    if request.method == "POST":
-        title = request.form["title"]
-        body = request.form["body"]
+    author_id = g.user['id']
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
         error = None
 
         if not title:
-            error = "Title is required."
+            error = 'Title is required.'
 
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                "INSERT INTO post (title, body, author_id) VALUES (?, ?, ?)",
-                (title, body, g.user["id"]),
-            )
-            db.commit()
-            return redirect(url_for("blog.index"))
-
-    return render_template("blog/create.html")
+            PostModel().add_post(title, body, author_id)
+            return redirect(url_for('blog.index'))
+    return render_template('blog/create.html')
 
 
-@blog_bp.route("/<int:id>/update", methods=("GET", "POST"))
+@blog_bp.route('/<int:post_id>/update', methods=('GET', 'POST'))
 @login_required
-def update(id):
-    post = get_post(id)
+def update(post_id):
+    post = service_post.get_post_by_id(post_id)
 
-    if request.method == "POST":
-        title = request.form["title"]
-        body = request.form["body"]
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
         error = None
 
         if not title:
-            error = "Title is required."
+            error = 'Title is required.'
 
         if error is not None:
             flash(error)
         else:
-            db = get_db()
-            db.execute(
-                "UPDATE post SET title = ?, body = ? WHERE id = ?", (title, body, id)
-            )
-            db.commit()
-            return redirect(url_for("blog.index"))
+            PostModel().update_post(title, body, post_id)
+            return redirect(url_for('blog.index'))
 
-    return render_template("blog/update.html", post=post)
+    return render_template('blog/update.html', post=post)
 
 
-@blog_bp.route("/<int:id>/delete", methods=("POST",))
+@blog_bp.route('/<int:post_id>/delete', methods=('POST',))
 @login_required
-def delete(id):
-    get_post(id)
-    db = get_db()
-    db.execute("DELETE FROM post WHERE id = ?", (id,))
-    db.commit()
-    return redirect(url_for("blog.index"))
+def delete(post_id):
+    service_post.get_post_by_id(post_id)
+    PostModel().delete_post(post_id)
+    return redirect(url_for('blog.index'))
