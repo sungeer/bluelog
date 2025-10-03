@@ -3,9 +3,9 @@ from flask import Flask
 from greybook.blueprints.admin import admin_bp
 from greybook.blueprints.auth import auth_bp
 from greybook.blueprints.blog import blog_bp
-from shortly.core.errors import register_errors
-from shortly.core.logging import register_logging
-from shortly.settings import config
+from bluelog.core.errors import register_errors
+from bluelog.core.logging import register_logging
+from bluelog.settings import config
 
 
 def create_app(config_name):
