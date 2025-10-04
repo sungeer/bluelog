@@ -1,4 +1,4 @@
-from bluelog.models.model_base import BaseModel
+from viper.models.model_base import BaseModel
 
 
 class PostModel(BaseModel):

@@ -1,6 +1,6 @@
 from contextlib import suppress
 
-from bluelog.utils.util_db import get_db_conn
+from viper.cores.core_db import get_db_conn
 
 
 class BaseModel:
@@ -10,12 +10,10 @@ class BaseModel:
         self._conn = None
 
     def conn(self, with_begin=False):
-        if not self._conn:
-            self._conn = get_db_conn()
+        self._conn = get_db_conn()
         if with_begin:
             self._conn.begin()
-        if not self.cursor:
-            self.cursor = self._conn.cursor()
+        self.cursor = self._conn.cursor()
 
     def commit(self):
         try:

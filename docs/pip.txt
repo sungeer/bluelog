@@ -5,11 +5,10 @@ pip install -r requirements.txt
 
 
 python -m pip install redis
-python -m pip install loguru
 python -m pip install requests
 
 
-python -m pip install python-dotenv Flask mysqlclient SQLAlchemy
+python -m pip install python-dotenv loguru Werkzeug mysqlclient SQLAlchemy
 
 
 waitress --host=127.0.0.1 --port=7788 app:app

@@ -1,5 +1,5 @@
-from datetime import datetime
 import time
+from datetime import datetime
 
 
 def wait_ms(ms=20):
@@ -7,6 +7,6 @@ def wait_ms(ms=20):
     return
 
 
-def get_now():
+def get_now_dt():
     now = datetime.now()
     return now.strftime('%Y-%m-%d %H:%M:%S')
