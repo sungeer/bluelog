@@ -1,4 +1,4 @@
-# Otter
+# Viper
 
 *Async backend depends on the Starlette ASGI toolkit.*
 
@@ -6,7 +6,7 @@
 
 clone:
 ```
-$ git clone https://github.com/sungeer/otter.git
+$ git clone https://github.com/sungeer/viper.git
 $ cd otter
 ```
 create & activate virtual env then install dependency:
