@@ -1,6 +1,6 @@
 # Viper
 
-*Async backend depends on the Starlette ASGI toolkit.*
+*A lightweight Python web API built with Werkzeug.*
 
 ## Installation
 
