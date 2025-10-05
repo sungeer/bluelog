@@ -1,15 +1,14 @@
 from viper.models.model_base import BaseModel
 
 
-class PostModel(BaseModel):
+class SoftwareModel(BaseModel):
 
-    def get_posts(self):
+    def get_softwares(self):
         sql_str = '''
             SELECT
                 p.id, title, body, created, author_id, username
             FROM
-                post p
-                LEFT JOIN user u ON p.author_id = u.id
+                softwares
             ORDER BY created DESC
         '''
         self.conn()
@@ -19,13 +18,12 @@ class PostModel(BaseModel):
         return posts
 
 
-    def get_post_by_id(self, post_id):
+    def get_software_by_id(self, post_id):
         sql_str = '''
             SELECT
                 p.id, title, body, created, author_id, username
             FROM
-                post p
-                LEFT JOIN user u ON p.author_id = u.id
+                softwares
             WHERE
                 p.id = %s
         '''
@@ -36,10 +34,10 @@ class PostModel(BaseModel):
         return post
 
 
-    def add_post(self, title, body, author_id, created_at):
+    def add_software(self, title, body, author_id, created_at):
         sql_str = '''
             INSERT INTO
-                post
+                softwares
                 (title, body, author_id, created_at)
             VALUES (%s, %s, %s, %s)
         '''
@@ -50,10 +48,10 @@ class PostModel(BaseModel):
         self.close()
         return lastrowid
 
-    def update_post(self, title, body, post_id):
+    def update_software(self, title, body, post_id):
         sql_str = '''
             UPDATE
-                post
+                softwares
             SET
                 title = %s, body = %s
             WHERE
@@ -66,10 +64,10 @@ class PostModel(BaseModel):
         self.close()
         return rowcount
 
-    def delete_post(self, post_id):
+    def delete_software(self, post_id):
         sql_str = '''
             DELETE FROM
-                post
+                softwares
             WHERE
                 id = %s
         '''
