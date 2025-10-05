@@ -6,6 +6,7 @@ pip install -r requirements.txt
 
 python -m pip install redis
 python -m pip install requests
+python -m pip install orjson
 
 
 python -m pip install python-dotenv loguru Werkzeug mysqlclient SQLAlchemy

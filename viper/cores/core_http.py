@@ -1,4 +1,4 @@
-import json
+import orjson
 
 from werkzeug.http import HTTP_STATUS_CODES
 from werkzeug.wrappers import Response as BaseResponse
@@ -7,9 +7,9 @@ from werkzeug.wrappers import Response as BaseResponse
 class Response(BaseResponse):
 
     def __init__(self, response, **kwargs):
-        response_json = json.dumps(response, ensure_ascii=False, separators=(',', ':'))
+        payload = orjson.dumps(response)  # bytes
         kwargs.pop('mimetype', None)
-        super().__init__(response_json, content_type='application/json; charset=utf-8', **kwargs)
+        super().__init__(payload, content_type='application/json', **kwargs)
 
 
 class ResponseModel:

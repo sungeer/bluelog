@@ -1,9 +1,9 @@
-import json
+import orjson
 
 
 def dict_to_json(data):
-    return json.dumps(data, ensure_ascii=False)
+    return orjson.dumps(data).decode('utf-8')
 
 
 def json_to_dict(json_data):
-    return json.loads(json_data)
+    return orjson.loads(json_data)
