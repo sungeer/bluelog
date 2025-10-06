@@ -9,8 +9,8 @@ python -m pip install requests
 python -m pip install orjson
 
 
-python -m pip install python-dotenv loguru Werkzeug mysqlclient SQLAlchemy
+python -m pip install loguru Werkzeug mysqlclient SQLAlchemy
 
 
-waitress --host=127.0.0.1 --port=7788 app:app
+waitress --host=127.0.0.1 --port=7788 app:wsgi_app
 
