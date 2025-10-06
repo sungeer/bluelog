@@ -2,10 +2,6 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-from dotenv import find_dotenv, load_dotenv
-
-load_dotenv(find_dotenv())
-
 with_debug = os.getenv('DEBUG') == '1'
 
 base_dir = Path(__file__).resolve().parent.parent
