@@ -8,7 +8,7 @@ load_dotenv(find_dotenv())
 
 with_debug = os.getenv('DEBUG') == '1'
 
-base_dir = Path(__file__).resolve().parent.parent.parent
+base_dir = Path(__file__).resolve().parent.parent
 
 # db
 database_username = os.getenv('DATABASE_USERNAME')

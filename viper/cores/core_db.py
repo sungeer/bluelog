@@ -6,9 +6,9 @@ from sqlalchemy.pool import QueuePool
 def create_db_connect():
     db_connect = MySQLdb.connect(
         host='127.0.0.1',
-        user='user',
-        passwd='password',
-        db='dbname',
+        user='root',
+        passwd='admin',
+        db='viper',
         charset='utf8mb4',
         cursorclass=DictCursor,
     )
