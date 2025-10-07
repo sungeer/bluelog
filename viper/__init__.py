@@ -18,7 +18,7 @@ def dispatch_request(request):
     try:
         response = view_func(request)
     except (Exception,):
-        logger.exception('Internal Server Error')
+        logger.exception('Global Exception Caught')
         return abort(500)
     return response
 
