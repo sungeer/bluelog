@@ -2,7 +2,7 @@ from werkzeug.wrappers import Request
 
 from viper.cores.core_log import logger
 from viper.cores.core_http import abort
-from viper.views.view_software import urls as url_software
+from viper.views.view_bless import urls as url_software
 
 url_map = {}
 url_map.update(url_software)
