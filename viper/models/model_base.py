@@ -28,7 +28,7 @@ class BaseModel:
             self.cursor and self.cursor.close()
         self.cursor = None
         with suppress(Exception):
-            self._conn and self._conn.close()
+            self._conn and self._conn.close()  # 归还到连接池
         self._conn = None
 
     def execute(self, sql_str, values=None):
