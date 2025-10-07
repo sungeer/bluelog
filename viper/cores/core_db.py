@@ -2,13 +2,16 @@ import MySQLdb
 from MySQLdb.cursors import DictCursor
 from sqlalchemy.pool import QueuePool
 
+from viper import settings
+
 
 def create_db_connect():
     db_connect = MySQLdb.connect(
-        host='127.0.0.1',
-        user='root',
-        passwd='admin',
-        db='viper',
+        host=settings.database_host,
+        user=settings.database_username,
+        passwd=settings.database_password,
+        db=settings.database_name,
+        # port=settings.database_port,
         charset='utf8mb4',
         cursorclass=DictCursor,
     )
