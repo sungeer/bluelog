@@ -11,5 +11,5 @@ def get_blesses(request):
 
 
 urls = {
-    '/api/get_softwares': get_blesses,
+    '/api/get_blesses': get_blesses,
 }
