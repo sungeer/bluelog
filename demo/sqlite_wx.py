@@ -5,7 +5,7 @@ from contextlib import suppress
 
 db_file = ''
 
-db_write_lock = threading.Lock()
+db_write_lock = threading.Lock()  # 无需事务
 
 
 def creat_db():
@@ -29,7 +29,6 @@ def creat_db():
 
     try:
         cursor.execute(create_sql)
-
         for sql in sql_indexes:
             cursor.execute(sql)
         conn.commit()
