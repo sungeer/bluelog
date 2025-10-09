@@ -21,12 +21,12 @@ def get_connection(db_path=DB_PATH):
 def apply_pragmas(conn):
     # 根据你的桌面客户端推荐配置
     conn.execute("PRAGMA journal_mode=WAL;")  # WAL 模式
-    conn.execute("PRAGMA synchronous=FULL;")  # 强一致性
-    conn.execute("PRAGMA wal_autocheckpoint=8000;")  # 约 32MB（4KB页）
-    conn.execute("PRAGMA journal_size_limit=268435456;")  # 256MB
-    conn.execute("PRAGMA cache_size=-32768;")  # ≈128MB（4KB页）；可改 -65536
-    conn.execute("PRAGMA temp_store=MEMORY;")
-    conn.execute("PRAGMA mmap_size=268435456;")  # 256MB
+    conn.execute("PRAGMA synchronous=NORMAL;")  # 强一致性
+    # conn.execute("PRAGMA wal_autocheckpoint=8000;")  # 约 32MB（4KB页）
+    conn.execute("PRAGMA journal_size_limit=134217728;")  # 128MB 限制 WAL 体积上限 268435456 即 256MB
+    # conn.execute("PRAGMA cache_size=-32768;")  # ≈128MB（4KB页）；可改 -65536
+    # conn.execute("PRAGMA temp_store=MEMORY;")
+    # conn.execute("PRAGMA mmap_size=268435456;")  # 256MB
     conn.execute("PRAGMA busy_timeout=5000;")  # 5s，增强健壮性
 
 
