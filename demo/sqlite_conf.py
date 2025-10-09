@@ -12,12 +12,7 @@ write_lock = threading.Lock()
 def get_connection(db_path=DB_PATH):
     # check_same_thread=False 允许将同一连接用于不同线程（谨慎使用）
     # 如果你打算每个线程独立连接，则保留默认 True，并在线程内创建并持有连接。
-    conn = sqlite3.connect(
-        db_path,
-        timeout=5.0,  # 等价于 PRAGMA busy_timeout=5000（秒为单位）
-        isolation_level=None,  # 手动控制事务（None = autocommit 模式）
-        check_same_thread=False
-    )
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     apply_pragmas(conn)
     return conn

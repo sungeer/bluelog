@@ -9,12 +9,7 @@ WRITE_LOCK = threading.Lock()  # 串行化写
 
 
 def make_conn():
-    conn = sqlite3.connect(
-        DB_PATH,
-        timeout=5.0,  # busy_timeout 等价（秒）
-        isolation_level=None,  # autocommit，手动控制事务
-        check_same_thread=False
-    )
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     apply_pragmas(conn)
     return conn
@@ -27,7 +22,7 @@ def apply_pragmas(conn):
     conn.execute("PRAGMA journal_size_limit=268435456;")
     conn.execute("PRAGMA cache_size=-32768;")  # ≈128MB；如读连接多可适当调小
     conn.execute("PRAGMA temp_store=MEMORY;")
-    conn.execute("PRAGMA mmap_size=268435456;")
+    conn.execute("PRAGMA mmap_size=268435456;")  # 256MB [读多写少的服务mmap_size=536870912; # 512MB]
     conn.execute("PRAGMA busy_timeout=5000;")
 
 
