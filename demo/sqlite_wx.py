@@ -100,7 +100,6 @@ def db_write_many():
     with db_write_lock:
         conn = sqlite3.connect(db_file)
         init_db_pragmas(conn)
-        conn.execute('BEGIN IMMEDIATE;')
         cursor = conn.cursor()
         try:
             cursor.executemany(sql_str, rows)
