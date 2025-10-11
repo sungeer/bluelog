@@ -20,7 +20,7 @@ $ pip install -r requirements.txt
 
 run:
 ```
-$ granian --interface wsgi otter:app
+$ waitress --host=127.0.0.1 --port=7788 viper:wsgi_app
 * Running on http://127.0.0.1:8000/
 ```
 
